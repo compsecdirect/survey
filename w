@@ -58,7 +58,7 @@ color 0a
 
 cmd.exe /c echo ###################################################################
 cmd.exe /c echo #   WINDOWS SURVEY FROM Declined Pub and jfersec @CompSecDirect   #
-cmd.exe /c echo #																  #
+cmd.exe /c echo #								  #
 cmd.exe /c echo ###################################################################
 cmd.exe /c echo. 
 
@@ -125,7 +125,7 @@ rem systeminfo | find "OS Name" > %TEMP%\osname.txt
 for /f "tokens=3*" %%i IN ('reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v ProductName ^| Find "ProductName"') DO set vers=%%i %%j
 
 cmd.exe /c echo ##################################################
-cmd.exe /c echo #         OS VERSION				             #
+cmd.exe /c echo #         OS VERSION			         #
 cmd.exe /c echo ##################################################
 
 echo %vers% As the detected OS
@@ -813,7 +813,7 @@ cmd.exe /c type *-get-process.txt
  
 cmd.exe /c echo.
 cmd.exe /c echo ##################################################
-cmd.exe /c echo # PROCESS LIST WITH FULL PATH #
+cmd.exe /c echo #         PROCESS LIST WITH FULL PATH            #
 cmd.exe /c echo ##################################################
 cmd.exe /c echo. 
 
@@ -825,7 +825,7 @@ cmd.exe /c type *-get-process-full.txt
 
 cmd.exe /c echo.
 cmd.exe /c echo ##################################################
-cmd.exe /c echo #              LISTING DRIVERS		             #
+cmd.exe /c echo #              LISTING DRIVERS		         #
 cmd.exe /c echo ##################################################
 cmd.exe /c echo. 
 
@@ -1420,7 +1420,7 @@ powershell Get-ChildItem c:\ -recurse ^| Get-FileHash -algorithm sha1 ^| select-
 :Zip
 cmd.exe /c echo.
 cmd.exe /c echo ##################################################
-cmd.exe /c echo #            ZIP Results		                 #
+cmd.exe /c echo #            ZIP Results		         #
 cmd.exe /c echo ##################################################
 powershell Compress-Archive -Path %computername%-* -DestinationPath %computername%-collection-%VAR%
  

@@ -5,7 +5,7 @@ rem ' Updated to Windows 10 by jfersec(CompSec Direct) '
 rem ' CompSec Direct asserts no claims of ownership/work products within this script '
 rem ''''''''''''''''''''''''''''''''''''''''''''''''''
 rem This script will conduct an initial survey of the target environment
-rem tested on XP SP0 Pro, XP SP2 Pro, Win7, Vista, Windows 10
+rem tested on XP SP0 Pro, XP SP2 Pro, Win7, Vista, Windows 10, Windows Server 2019
 color 0b
 title Windows Survey
 
@@ -15,7 +15,7 @@ mode con cols=160
 set hour=%time: =0%
 set VAR=%computername%-%date:~10,4%-%date:~4,2%-%date:~7,2%_%hour:~0,2%h_%time:~3,2%m
 
-cmd.exe /c echo #MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWXOkOKWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM TODO: Remove shameless branding Â¯\_(ãƒ„)_/Â¯
+cmd.exe /c echo #MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWXOkOKWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM TODO: Remove shameless branding ¯\_(?)_/¯
 cmd.exe /c echo #MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNk:''''';dKMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 cmd.exe /c echo #MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMO;''''''''''oNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM Follow us on Social Media
 cmd.exe /c echo #MMMMMMMMMMMMMMMMMMMMMMMMMMMMMk,'''';dO00ko;:0MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM L: company/compsec-direct  
@@ -32,15 +32,15 @@ cmd.exe /c echo #MMMMMMMMMMMMMMMMMMMMMMMk''''OMMMMMMMMMMMMWKkkkkkkkkkKWMMMMMMMMM
 cmd.exe /c echo #MMMMMMMMMMMMMMMMMMMMMMMo''';NMMMMMMMMMMMNkkkkkkkkkkkkONMMMMMMMMMMMMMMMMMMMMMMMM
 cmd.exe /c echo #MMMMMMMMMMMMMMMMMMMMMMW:'''oMMMMMMMMMWOX0kkkkkkkkkkkkkKMMMMMMMMMMMMMMMMMMMMMMMM
 cmd.exe /c echo #MMMMMMMMMMMMMMMMMMMMNOo,'''lKNMMMMNKx:'K0kkkkkkkkkkkkkKMMMMMMMMMMMMMMMMMMMMMMMM WINDOWS SURVEY FROM Declined Pub and jfersec @CompSecDirect
-cmd.exe /c echo #MMMMMMMMMMMMMMMMMMXo;'''''''',;::;,''''oNOkkkkkkkkkkkkk0XWMMMMMMMMMMMMMMMMMMMMM Version 1, Because why not
-cmd.exe /c echo #MMMMMMMMMMMMMMMMMN:''''''''''''''',lk0KXWMKkkkkkkkkkkkkkkkKNMMMMMMMMMMMMMMMMMMM Date Aug 27, 2020
+cmd.exe /c echo #MMMMMMMMMMMMMMMMMMXo;'''''''',;::;,''''oNOkkkkkkkkkkkkk0XWMMMMMMMMMMMMMMMMMMMMM Version 1.1, Because why not
+cmd.exe /c echo #MMMMMMMMMMMMMMMMMN:''''''''''''''',lk0KXWMKkkkkkkkkkkkkkkkKNMMMMMMMMMMMMMMMMMMM Date Jun 23, 2021
 cmd.exe /c echo #MMMMMMMMMMMMMMMMMk'''''''''''''';kNMMMMMMMM0kkkkk0NWWX0kkkkkOXWMMMMMMMMMMMMMMMM 
 cmd.exe /c echo #MMMMMMMMMMMMMMMMM0'''''''''''''cXMMMMMMMMMMNkkkkKMMMMMMNKkkkkkkKWMMMMMMMMMMMMMM MIT License, ShelfWare
 cmd.exe /c echo #MMMMMMMMMMMMMMMMMMd,''''''''''oNNMMMMMMMMMMNkkk0MMMMMMMMMWKOkkkkk0NMMMMMMMMMMMM No ownership rights expressed
 cmd.exe /c echo #MMMMMMMMMMMWXWMMMMMKd;''''',lO0ooXMMMMMMMMM0kkxXMMMMMMMMMMMMNOkkkkk0NMMMMMMMMMM Make this script not suck: Hit up github
 cmd.exe /c echo #MMMMMMMMMN0KWMMMMMMMMWXK00KXKxccccd0XWMMMMNKK0O0MMMMMMMMMMMMMMN0kkkkk0WMMMMMMMM Github: github.com/CompSecDirect/Survey
 cmd.exe /c echo #MMMMMMMW0kNMMMMMMMMMMMMMMMMMMMN0xcccclodddoodk0XWMMMMMMMMMMMMMMMNOkkkkkKWMMMMMM 
-cmd.exe /c echo #MMMMMMKdOWMMMMMMMMMMMMMMMMMMMMMMMKocccccccccccclOWMMMMMMMMMMMMMMMMXkkkkkONMMMMM Work Ratio: DP 92 / jfersec 8
+cmd.exe /c echo #MMMMMMKdOWMMMMMMMMMMMMMMMMMMMMMMMKocccccccccccclOWMMMMMMMMMMMMMMMMXkkkkkONMMMMM Work Ratio: DP 89 / jfersec 11
 cmd.exe /c echo #MMMMMOlKMMMMMMMMMMMMMMMMMMMMMMMMMMWdcccccccccccccOMMMMMMMMMMMMMMMMMNOkkkkkNMMMM
 cmd.exe /c echo #MMMWxc0MMMMMMMMMMMMMMMMMMMMMMMMMMMM0cccccccccccccdMMMMMMMMMMMMMMMMMMW0kkkkkXMMM
 cmd.exe /c echo #MMMxclNMMMMMMMMMMMMMMMMMMMMMMMMNKkdlccccccccccccckMMMMMMMMMMMMMMMMMMMNkkkkkOMMM
@@ -131,6 +131,9 @@ cmd.exe /c echo ##################################################
 echo %vers% As the detected OS
 echo %vers% As the detected OS > %VAR%-hostinfo.txt
 
+echo %vers% | find "Windows Vista" > nul
+if %ERRORLEVEL% == 0 goto ver_post-vista
+
 echo %vers% | find "Windows 7" > nul
 if %ERRORLEVEL% == 0 goto ver_post-vista
 
@@ -143,7 +146,13 @@ if %ERRORLEVEL% == 0 goto ver_post-vista
 echo %vers% | find "Windows Server 2008" > nul
 if %ERRORLEVEL% == 0 goto ver_post-vista
 
-echo %vers% | find "Windows Vista" > nul
+echo %vers% | find "Windows Server 2012" > nul
+if %ERRORLEVEL% == 0 goto ver_post-vista
+
+echo %vers% | find "Windows Server 2016" > nul
+if %ERRORLEVEL% == 0 goto ver_post-vista
+
+echo %vers% | find "Windows Server 2019" > nul
 if %ERRORLEVEL% == 0 goto ver_post-vista
 
 rem goto warnthenexit
@@ -314,7 +323,7 @@ cmd.exe /c echo ##################################################
 cmd.exe /c echo
 
 rem ' Sourced from https://www.prajwaldesai.com/get-public-ip-address-using-powershell/'
-powershell Invoke-RestMethod -Uri ('https://ipinfo.io/')
+powershell "Invoke-RestMethod -Uri ('https://ipinfo.io/') | tee %VAR%-networkinfo.txt"
 
 cmd.exe /c echo var request = new ActiveXObject("Msxml2.XMLHTTP"); > ext_ip.js
 cmd.exe /c echo var notyetready = 1; >> ext_ip.js
@@ -1002,6 +1011,8 @@ cmd.exe /c echo #      CHECKING COMPUTER'S PUBLIC IP ADDRESS     #
 cmd.exe /c echo ##################################################
 cmd.exe /c echo. 
 
+rem ' Sourced from https://www.prajwaldesai.com/get-public-ip-address-using-powershell/'
+powershell "Invoke-RestMethod -Uri ('https://ipinfo.io/') | tee %VAR%-networkinfo.txt"
 
 cmd.exe /c echo var request = new ActiveXObject("Msxml2.XMLHTTP"); > ext_ip.js
 cmd.exe /c echo var notyetready = 1; >> ext_ip.js
@@ -1387,15 +1398,15 @@ powershell Get-Service ^| format-table -auto name,status,displayname ^| tee-obje
 
 cmd.exe /c echo.
 cmd.exe /c echo ##################################################
-cmd.exe /c echo #     LOOK FOR MODIFIED FILES IN LAST HOUR		 #
+cmd.exe /c echo #     LOOK FOR MODIFIED FILES IN LAST HOUR	 #
 cmd.exe /c echo ##################################################
 cmd.exe /c echo.
 
-powershell Get-ChildItem c:\ -recurse ^| ?{$_.LastWriteTime -gt (Get-Date).AddMinutes(-60) } ^|select-object directory, name, lastwritetime, length ^| Export-Csv %VAR%-hour-c.csv
+powershell Get-ChildItem -Force -EA 0 c:\ -recurse ^| ?{$_.LastWriteTime -gt (Get-Date).AddMinutes(-60) } ^|select-object directory, name, lastwritetime, length ^| Export-Csv %VAR%-hour-c.csv
 
 cmd.exe /c echo.
 cmd.exe /c echo ##################################################
-cmd.exe /c echo #            DIR WALK			                 #
+cmd.exe /c echo #            DIR WALK			         #
 cmd.exe /c echo ##################################################
 cmd.exe /c echo.
 
